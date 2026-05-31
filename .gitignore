@@ -1,12 +1,94 @@
+# Logs
 logs/
+*.log
+*.pid
+
+# Local tooling state
 .claude/
 .gemini/
 .devcontainer/devcontainer-lock.json
-.venv/
+.venv-tools/
+.cache/
+
+# Python bytecode
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Environment and secret files
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.flaskenv
+.envrc
+.direnv/
+
+# Flask instance (often contains secrets)
+instance/
+
+# Packaging/build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+pip-wheel-metadata/
+__pypackages__/
+
+# Test/coverage outputs
 .pytest_cache/
 .coverage
+.coverage.*
 coverage.xml
-*.egg-info/
+htmlcov/
+*.cover
+*.py,cover
+.hypothesis/
+.nox/
+.tox/
+
+# Type checker/linter caches
+.mypy_cache/
+.pytype/
+.pyre/
 .ruff_cache/
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local databases
+*.sqlite
+*.sqlite3
+
+# Keys/certificates/credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.csr
+*.cert
+*.gpg
+*.asc
+*service-account*.json
+*credentials*.json
+
+# Custom
+.planning/

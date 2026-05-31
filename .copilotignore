@@ -1,2 +1,64 @@
+# Local tooling state
 .claude/
 .gemini/
+
+# Python caches and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.cache/
+.tox/
+.nox/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+.eggs/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# Logs and runtime artifacts
+*.log
+logs/
+
+# Local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Environment files and secrets
+.env
+.env.*
+*.env
+.envrc
+*.secret
+*.secrets
+secrets/
+.secrets/
+**/credentials.json
+
+# Keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+**/id_rsa
+**/id_ed25519
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
