@@ -86,3 +86,19 @@ Then set:
   `projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/providers/${PROVIDER_ID}`
 * `GCP_SERVICE_ACCOUNT` to  
   `${SERVICE_ACCOUNT_EMAIL}`
+
+## Terraform GitOps workflow (local state)
+
+This repository runs Terraform checks in CI and applies on `main` to manage Cloud Run ingress and IAM. The apply job uses local state, so each CI run imports the existing Cloud Run service before planning/applying. If the service does not exist yet, bootstrap it once before relying on the Terraform workflow.
+
+**Terraform OIDC secrets**
+
+- `GCP_TERRAFORM_WORKLOAD_IDENTITY_PROVIDER`
+- `GCP_TERRAFORM_SERVICE_ACCOUNT`
+
+**Terraform variables**
+
+- `GCP_PROJECT_ID`
+- `GCP_REGION`
+- `CLOUD_RUN_SERVICE`
+- `CLOUD_RUN_INVOKER_SERVICE_ACCOUNT`
