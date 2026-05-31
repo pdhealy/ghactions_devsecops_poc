@@ -7,6 +7,8 @@ terraform {
       version = "~> 5.30"
     }
   }
+
+  backend "gcs" {}
 }
 
 provider "google" {
@@ -21,9 +23,26 @@ resource "google_cloud_run_v2_service" "service" {
   ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
 
   template {
+    service_account = google_service_account.runtime.email
+
     containers {
       image = var.image
+
+      resources {
+        limits = {
+          cpu    = var.container_cpu
+          memory = var.container_memory
+        }
+      }
     }
+
+    scaling {
+      min_instance_count = var.min_instance_count
+      max_instance_count = var.max_instance_count
+    }
+
+    max_instance_request_concurrency = var.max_instance_request_concurrency
+    timeout                          = var.timeout
   }
 
   traffic {
@@ -32,10 +51,25 @@ resource "google_cloud_run_v2_service" "service" {
   }
 }
 
-resource "google_cloud_run_v2_service_iam_binding" "invoker" {
+resource "google_service_account" "runtime" {
+  account_id   = var.runtime_service_account_id
+  display_name = "Cloud Run runtime for ${var.service_name}"
+  project      = var.project_id
+}
+
+resource "google_cloud_run_v2_service_iam_member" "invoker" {
   project  = var.project_id
   location = var.region
   name     = google_cloud_run_v2_service.service.name
   role     = "roles/run.invoker"
-  members  = ["serviceAccount:${var.invoker_service_account}"]
+  member   = "serviceAccount:${var.invoker_service_account}"
+}
+
+resource "google_cloud_run_v2_service_iam_member" "public_invoker" {
+  # The internal load balancer proxies requests without end-user IAM auth.
+  project  = var.project_id
+  location = var.region
+  name     = google_cloud_run_v2_service.service.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
 }
