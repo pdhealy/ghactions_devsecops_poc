@@ -1,0 +1,39 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+{
+	"name": "Ubuntu (Ollama, Claude, Copilot CLI)",
+	"image": "mcr.microsoft.com/devcontainers/python:3.11-slim",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers/features/copilot-cli:1": {},
+		"ghcr.io/prulloac/devcontainer-features/ollama:1": {},
+		"ghcr.io/postfinance/devcontainer-features/claude-code:1": {}
+	},
+	"mounts": [
+		"source=ollama-models,target=/home/vscode/.ollama/models,type=volume"
+	],
+	"runArgs": [
+		"--add-host=host.docker.internal:host-gateway"
+	],
+	"containerEnv": {
+		"OLLAMA_HOST": "http://host.docker.internal:11434"
+	},
+	"postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && curl -LsSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash",
+	"postStartCommand": "sudo install -d -m 0755 -o vscode -g vscode /home/vscode/.ollama /home/vscode/.ollama/models && NODE=$(ls /vscode/vscode-server/bin/linux-*/*/node 2>/dev/null | head -1 || true) && [ -n \"$NODE\" ] && sudo ln -sf \"$NODE\" /usr/local/bin/node",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.pytest",
+				"astral-sh.ruff",
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	}
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
