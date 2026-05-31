@@ -23,5 +23,10 @@ def get_port() -> int:
     return int(port_value)
 
 
+def get_host() -> str:
+    # Bind to all interfaces for container runtimes.
+    return os.getenv("HOST", "0.0.0.0")  # nosec B104
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=get_port())
+    app.run(host=get_host(), port=get_port())
