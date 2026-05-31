@@ -12,3 +12,8 @@ output "runtime_service_account_email" {
   value       = google_service_account.runtime.email
   description = "Service account email used by the Cloud Run runtime."
 }
+
+output "internal_load_balancer_ip" {
+  value       = google_compute_forwarding_rule.cloud_run.ip_address
+  description = "IP address of the internal Application Load Balancer."
+}

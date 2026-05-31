@@ -23,6 +23,18 @@ variable "invoker_service_account" {
   description = "Service account email granted the Cloud Run invoker role."
 }
 
+variable "frontend_subnet_cidr_range" {
+  type        = string
+  description = "CIDR range for the internal load balancer frontend subnet."
+  default     = "10.10.0.0/24"
+}
+
+variable "proxy_only_subnet_cidr_range" {
+  type        = string
+  description = "CIDR range for the proxy-only subnet used by the internal load balancer."
+  default     = "10.10.1.0/24"
+}
+
 variable "runtime_service_account_id" {
   type        = string
   description = "Service account ID for the Cloud Run runtime."

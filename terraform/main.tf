@@ -7,6 +7,8 @@ terraform {
       version = "~> 5.30"
     }
   }
+
+  backend "gcs" {}
 }
 
 provider "google" {
@@ -61,4 +63,13 @@ resource "google_cloud_run_v2_service_iam_member" "invoker" {
   name     = google_cloud_run_v2_service.service.name
   role     = "roles/run.invoker"
   member   = "serviceAccount:${var.invoker_service_account}"
+}
+
+resource "google_cloud_run_v2_service_iam_member" "public_invoker" {
+  # The internal load balancer proxies requests without end-user IAM auth.
+  project  = var.project_id
+  location = var.region
+  name     = google_cloud_run_v2_service.service.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
 }
