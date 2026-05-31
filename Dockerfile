@@ -15,6 +15,7 @@ RUN uv export --format requirements.txt \
         --output-file /tmp/requirements.txt \
         --no-dev \
         --no-editable \
+        --no-emit-project \
         --frozen \
     && pip install --no-cache-dir --require-hashes -r /tmp/requirements.txt
 
