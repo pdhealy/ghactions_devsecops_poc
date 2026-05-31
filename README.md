@@ -16,6 +16,15 @@ This proof-of-concept demonstrates a secure, minimal GitHub Actions pipeline tha
 4. **OIDC keyless auth**: GitHub OIDC for GHCR/GCP instead of long-lived secrets.
 5. **Supply chain security**: Trivy vulnerability scanning + SLSA provenance attestation.
 
+## Runtime configuration
+
+Gunicorn is configured via `gunicorn.conf.py` with sensible defaults. You can tune behavior via environment variables:
+
+- `GUNICORN_WORKERS` (default: 2)
+- `GUNICORN_THREADS` (default: 4)
+- `GUNICORN_TIMEOUT` (default: 30)
+- `GUNICORN_GRACEFUL_TIMEOUT` (default: 30)
+
 ## Local Validation with `act` (inside the Dev Container)
 
 The dev container installs `act` and Docker-in-Docker so you can test the pipeline locally.
@@ -89,7 +98,7 @@ Then set:
 
 ## Terraform GitOps workflow (local state)
 
-This repository runs Terraform checks in CI and applies on `main` to manage Cloud Run ingress and IAM. The apply job uses local state, so each CI run imports the existing Cloud Run service before planning/applying. If the service does not exist yet, bootstrap it once before relying on the Terraform workflow.
+This repository runs Terraform checks in CI and applies on `main` to manage the Cloud Run service, runtime service account, ingress, and IAM. The apply job uses local state; CI will import the existing Cloud Run service when present and skip import on first‑time creation.
 
 **Terraform OIDC secrets**
 
@@ -102,3 +111,6 @@ This repository runs Terraform checks in CI and applies on `main` to manage Clou
 - `GCP_REGION`
 - `CLOUD_RUN_SERVICE`
 - `CLOUD_RUN_INVOKER_SERVICE_ACCOUNT`
+- Optional: `TF_VAR_runtime_service_account_id` (defaults to `cloud-run-runtime`)
+- Optional tuning: `TF_VAR_container_cpu`, `TF_VAR_container_memory`, `TF_VAR_min_instance_count`, `TF_VAR_max_instance_count`,
+  `TF_VAR_max_instance_request_concurrency`, `TF_VAR_timeout`
