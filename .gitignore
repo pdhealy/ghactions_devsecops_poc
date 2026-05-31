@@ -1,0 +1,12 @@
+logs/
+.claude/
+.gemini/
+.devcontainer/devcontainer-lock.json
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+coverage.xml
+*.egg-info/
+.ruff_cache/
