@@ -171,6 +171,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
+      - name: Normalize WIF provider
+        id: normalize-wif
+        run: |
+          provider="${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}"
+          provider="${provider#https://iam.googleapis.com/}"
+          provider="${provider#//iam.googleapis.com/}"
+          echo "provider=${provider}" >> "${GITHUB_OUTPUT}"
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
         with:
