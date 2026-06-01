@@ -171,7 +171,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: ${{ replace(replace(secrets.GCP_WORKLOAD_IDENTITY_PROVIDER, 'https://iam.googleapis.com/', ''), '//iam.googleapis.com/', '') }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup gcloud
@@ -238,7 +238,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed
         with:
-          workload_identity_provider: ${{ secrets.GCP_TERRAFORM_WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: ${{ replace(replace(secrets.GCP_TERRAFORM_WORKLOAD_IDENTITY_PROVIDER, 'https://iam.googleapis.com/', ''), '//iam.googleapis.com/', '') }}
           service_account: ${{ secrets.GCP_TERRAFORM_SERVICE_ACCOUNT }}
 
       - name: Setup gcloud
