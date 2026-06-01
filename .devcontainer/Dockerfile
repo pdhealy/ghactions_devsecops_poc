@@ -1,5 +1,5 @@
-# syntax=docker/dockerfile:1.x
-FROM mcr.microsoft.com/devcontainers/python:3.11-slim
+# syntax=docker/dockerfile:1.7
+FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
 
 ARG ACT_VERSION=0.2.88
 ARG ACT_SHA256=1eb9996682dfcc053ac8f3f90f2ec50376f0cdfc229712d82da03d673c63a2b3

@@ -8,7 +8,8 @@
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/devcontainers/features/copilot-cli:1.1.3": {},
-		"ghcr.io/prulloac/devcontainer-features/ollama:1": {}
+		"ghcr.io/prulloac/devcontainer-features/ollama:1": {},
+		"ghcr.io/postfinance/devcontainer-features/claude-code:1": {}
 	},
 	"mounts": [
 		"source=ollama-models,target=/home/vscode/.ollama/models,type=volume"

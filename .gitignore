@@ -98,3 +98,6 @@ Thumbs.db
 *.tfstate
 *.tfstate.*
 *.tfplan
+
+# Custom
+docs/
