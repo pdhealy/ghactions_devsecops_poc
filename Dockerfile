@@ -31,6 +31,10 @@ COPY --from=builder /opt/venv /opt/venv
 COPY --from=builder /app/src /app/src
 COPY gunicorn.conf.py /app/gunicorn.conf.py
 
+RUN python -m pip uninstall -y pip setuptools wheel \
+    && apt-get purge -y --allow-remove-essential --auto-remove perl-base libncursesw6 \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN useradd --system --uid 65532 --create-home --shell /usr/sbin/nologin nonroot
 USER nonroot
 ENTRYPOINT ["/opt/venv/bin/gunicorn", "-c", "/app/gunicorn.conf.py", "src.main:app"]
