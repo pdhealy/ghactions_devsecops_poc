@@ -5,8 +5,8 @@ FROM python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e3
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-RUN python -m venv "${VIRTUAL_ENV}" \
-    && pip install --no-cache-dir uv
+RUN python -m pip install --no-cache-dir uv \
+    && python -m venv "${VIRTUAL_ENV}"
 
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
