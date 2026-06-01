@@ -17,7 +17,8 @@ RUN uv export --format requirements.txt \
         --no-editable \
         --no-emit-project \
         --frozen \
-    && pip install --no-cache-dir --require-hashes -r /tmp/requirements.txt
+    && pip install --no-cache-dir --require-hashes -r /tmp/requirements.txt \
+    && python -m pip uninstall -y pip setuptools
 
 COPY src ./src
 
