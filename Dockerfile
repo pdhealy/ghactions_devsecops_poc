@@ -32,7 +32,7 @@ COPY --from=builder /app/src /app/src
 COPY gunicorn.conf.py /app/gunicorn.conf.py
 
 RUN python -m pip uninstall -y pip setuptools wheel \
-    && apt-get purge -y --allow-remove-essential --auto-remove perl-base libncursesw6 ncurses-base \
+    && apt-get purge -y --allow-remove-essential --auto-remove perl-base libncursesw6 ncurses-base ncurses-bin \
     && dpkg --purge --force-depends libtinfo6 \
     && rm -rf /var/lib/apt/lists/*
 
