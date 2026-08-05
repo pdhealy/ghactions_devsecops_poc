@@ -51,6 +51,11 @@ variable "container_memory" {
   type        = string
   description = "Memory limit for the container."
   default     = "512Mi"
+
+  validation {
+    condition     = can(regex("^[0-9]+(Mi|Gi)$", var.container_memory))
+    error_message = "The container_memory value must be a valid format, like '512Mi' or '1Gi'."
+  }
 }
 
 variable "min_instance_count" {
